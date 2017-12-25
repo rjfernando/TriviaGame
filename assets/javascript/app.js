@@ -73,7 +73,9 @@ $("#startOver").on("click", function(){
 function newGame(){
 	$("#correctAnswers").empty();
 	$("#incorrectAnswers").empty();
-	$("#unanswered").empty();
+    $("#unanswered").empty();
+    $("alertMessage").empty();
+    $("endMessage").empty();
     currentQuestion = 0;
     correctAnswer = 0;
 	incorrectAnswer = 0;
@@ -82,7 +84,7 @@ function newGame(){
 }
 
 function newQuestion(){
-	$("#alertmessage").empty();
+	$("#alertMessage").empty();
     $("#rightAnswer").empty();
     answered = true;
    
@@ -114,10 +116,12 @@ var time;
 
 function countdown(){
     seconds = 15;
+    $("#remainingTime").html("<h3>Time Remaining: " + seconds + "</h3>");
     answered = true;
     time = setInterval(showCountdown, 1000);
-    $("#remainingTime").html("<h3>Time Remaining: " + seconds + "</h3>");
+    
 }
+// console.log(seconds);
 
 function showCountdown(){
 	if  (seconds < 1){
@@ -130,7 +134,7 @@ function showCountdown(){
 }
 
 
-// result page with correct and incorrect answers information and message
+// result page with correct and incorrect answer information and message
 
 var unanswered;
 var answered;
@@ -139,7 +143,7 @@ var userSelect;
 
 function resultPage(){
 	$("#currentQuestion").empty();
-	$(".thisSelection").empty(); 
+	$(".thisSelections").empty(); 
     $("#question").empty();
     $("answerList").empty();
 
@@ -173,19 +177,22 @@ function resultPage(){
 		setTimeout(newQuestion, 5000);
 	}	
 }
-
+// results page with start over button.
 
 function scoreboard(){
 	$("#remainingTime").empty();
 	$("#alertMessage").empty();
 	$("#rightAnswer").empty();
 
-	$("#endMessage").html(messages.finished);
-	$("#answerList").html("Correct Answers: " + correctAnswer);
+	$("#endMessage").html(alertMessages.finished);
+	$("#correctAnswers").html("Correct Answers: " + correctAnswer);
 	$("#incorrectAnswers").html("Incorrect Answers: " + incorrectAnswer);
 	$("#unanswered").html("Unanswered: " + unanswered);
 	$("#startOver").addClass("reset");
 	$("#startOver").show();
-	$("#startOver").html("Start Over?");
+    $("#startOver").html("Start Over?");
+    $("#startOver").css("border: 2px solid blue");
 }
 
+// incomplete, I wasn't able to get the timer to start running, each time I click on an answer even the correct answer it
+//it gives me the Incorrect Message that I set. Also I was unable to add the image after every answser  
