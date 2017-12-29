@@ -75,7 +75,7 @@ function newGame(){
 	$("#correctAnswers").empty();
 	$("#incorrectAnswers").empty();
     $("#unanswered").empty();
-    $("alertMessage").empty();
+    $("alertMessages").empty();
     $("endMessage").empty();
     currentQuestion = 0;
     correctAnswer = 0;

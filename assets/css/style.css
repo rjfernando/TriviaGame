@@ -39,7 +39,7 @@ h1 {
 .thisSelections:hover {
     
 	background-color: lightBlue;
-	color: white;
+	color: navy;
 	padding: 10px;
 }
 
@@ -89,3 +89,7 @@ h1 {
     color: blue;
 }
 
+#question {
+    font-size: 25px;
+    color: navy;
+}
