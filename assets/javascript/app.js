@@ -80,13 +80,17 @@ function newGame(){
     correctAnswer = 0;
 	incorrectAnswer = 0;
 	unanswered = 0;
-	newQuestion();
+    newQuestion();
+    // decrement();
+
+    
 }
 
 function newQuestion(){
 	$("#alertMessage").empty();
     $("#rightAnswer").empty();
     answered = true;
+    number = 15;
    
     $("#question").html("<h2>" + questions[currentQuestion].question + "</h2>");
     
@@ -98,40 +102,61 @@ function newQuestion(){
         $("#answerList").append(selections);
     
     }
-    
-    countdown();
+    run();
 
     $(".thisSelections").on("click",function(){
-		userSelect = $(this).data("index");
-		clearInterval(time);
-		resultPage();
+        userSelect = $(this).data("index"); 
+        resultPage();
 	});
 }
  
 //timer functions for each question
 
-var seconds;
-var time;
+// var seconds;
+// var time;
 
+var number = 15;
+var intervalId;
 
-function countdown(){
-    seconds = 15;
-    $("#remainingTime").html("<h3>Time Remaining: " + seconds + "</h3>");
-    answered = true;
-    time = setInterval(showCountdown, 1000);
+function run() {
+    intervalId = setInterval(decrement, 1000);
+}
+
+function stop() {
+
+    clearInterval(intervalId);
+  }
+
+function decrement() {
+
+    number--;
+    $("#remainingTime").html("<h3> Time Remaining: " + number + "</h3>");``
+
+    if (number === 0) {
+
+        stop();
+    }
+   
+}
+
+// function countdown(){
+//     seconds = 15;
+//     $("#remainingTime").html("<h3>Time Remaining: " + seconds + "</h3>");
+//     answered = true;
+//     time = setInterval(showCountdown, 1000);
     
-}
-// console.log(seconds);
+// }
+// // console.log(seconds);
 
-function showCountdown(){
-	if  (seconds < 1){
-		clearInterval(time);
-		answered = false;
-        resultPage();
-        seconds--;
-	    $("#remainingTime").html("<h3>Time Remaining: " + seconds + "</h3>");
-	}
-}
+// function showCountdown(){
+// 	if  (seconds < 1){
+// 		clearInterval(time);
+// 		answered = false;
+//         resultPage();
+//         seconds--;
+// 	    $("#remainingTime").html("<h3>Time Remaining: " + seconds + "</h3>");
+// 	}
+// }
 
 
 // result page with correct and incorrect answer information and message
@@ -144,8 +169,9 @@ var userSelect;
 function resultPage(){
 	$("#currentQuestion").empty();
 	$(".thisSelections").empty(); 
-    $("#question").empty();
-    $("answerList").empty();
+    // $("#question").empty();
+    // $("answerList").empty();
+    stop();
 
 	var rightAnswerText = questions[currentQuestion].answerList[questions[currentQuestion].answer];
 	var rightAnswerIndex = questions[currentQuestion].answer;
