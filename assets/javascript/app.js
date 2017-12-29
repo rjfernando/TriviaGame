@@ -46,6 +46,7 @@ var questions = [{
 // console.log(questions);
 
 //delcare the variables for the gameplay
+
 var currentQuestion;
 var correctAnswers;
 var incorrectAnswers;
@@ -65,7 +66,7 @@ $("#startButton").on("click", function(){
     newGame();
 });
 
-$("#startOver").on("click", function(){
+$("#reset").on("click", function(){
     $(this).hide();
     newGame();
 });
@@ -89,9 +90,14 @@ function newGame(){
 function newQuestion(){
 	$("#alertMessage").empty();
     $("#rightAnswer").empty();
+    $("endMessage").empty();
     answered = true;
     number = 15;
    
+    if (number < 0) {
+        $("#alertMessage").html(alertMessages.endTime);
+    }
+
     $("#question").html("<h2>" + questions[currentQuestion].question + "</h2>");
     
     for (var i = 0; i < 4; i++) {
@@ -102,18 +108,18 @@ function newQuestion(){
         $("#answerList").append(selections);
     
     }
+    
     run();
 
     $(".thisSelections").on("click",function(){
         userSelect = $(this).data("index"); 
         resultPage();
-	});
+
+    });
+    
 }
  
 //timer functions for each question
-
-// var seconds;
-// var time;
 
 var number = 15;
 var intervalId;
@@ -125,7 +131,7 @@ function run() {
 function stop() {
 
     clearInterval(intervalId);
-  }
+}
 
 function decrement() {
 
@@ -139,26 +145,6 @@ function decrement() {
    
 }
 
-// function countdown(){
-//     seconds = 15;
-//     $("#remainingTime").html("<h3>Time Remaining: " + seconds + "</h3>");
-//     answered = true;
-//     time = setInterval(showCountdown, 1000);
-    
-// }
-// // console.log(seconds);
-
-// function showCountdown(){
-// 	if  (seconds < 1){
-// 		clearInterval(time);
-// 		answered = false;
-//         resultPage();
-//         seconds--;
-// 	    $("#remainingTime").html("<h3>Time Remaining: " + seconds + "</h3>");
-// 	}
-// }
-
-
 // result page with correct and incorrect answer information and message
 
 var unanswered;
@@ -169,14 +155,13 @@ var userSelect;
 function resultPage(){
 	$("#currentQuestion").empty();
 	$(".thisSelections").empty(); 
-    // $("#question").empty();
-    // $("answerList").empty();
+    $("#question").empty();
+    $("answerList").empty();
     stop();
 
-	var rightAnswerText = questions[currentQuestion].answerList[questions[currentQuestion].answer];
-	var rightAnswerIndex = questions[currentQuestion].answer;
-	// $('#gif').html('<img src = "assets/images/'+ gifArray[currentQuestion] +'.gif" width = "400px">');
-	
+	var rightAnswerText = questions[currentQuestion].answerList[questions[currentQuestion].rightAnswer];
+	var rightAnswerIndex = questions[currentQuestion].rightAnswer;
+ 
 	if  ((userSelect === rightAnswerIndex) && (answered === true)){
 		correctAnswer++;
 		$("#alertMessage").html(alertMessages.correct);
@@ -192,18 +177,19 @@ function resultPage(){
 		    unanswered++;
 		    $("#alertMessage").html(alertMessages.endTime);
 		    $("#rightAnswer").html("The correct answer was: " + rightAnswerText);
-		    answered = true;
+            answered = true;
+            newQuestion();
 	}
 	
 	if(currentQuestion === (questions.length-1)){
-		setTimeout(scoreboard, 5000)
+		setTimeout(scoreboard, 4000)
     } 
     else {
 		currentQuestion++;
-		setTimeout(newQuestion, 5000);
+		setTimeout(newQuestion, 4000);
 	}	
 }
-// results page with start over button.
+// results page with start over function.
 
 function scoreboard(){
 	$("#remainingTime").empty();
@@ -214,11 +200,12 @@ function scoreboard(){
 	$("#correctAnswers").html("Correct Answers: " + correctAnswer);
 	$("#incorrectAnswers").html("Incorrect Answers: " + incorrectAnswer);
 	$("#unanswered").html("Unanswered: " + unanswered);
-	$("#startOver").addClass("reset");
-	$("#startOver").show();
-    $("#startOver").html("Start Over?");
-    $("#startOver").css("border: 2px solid blue");
+	// $("#startOver").addClass("reset");
+	// $("#startOver").show();
+    $("#reset").html("Start Over?");
+    $("#reset").css("border: 2px solid blue");
 }
 
-// incomplete, I wasn't able to get the timer to start running, each time I click on an answer even the correct answer it
-//it gives me the Incorrect Message that I set. Also I was unable to add the image after every answser  
+// 
+//image function not created
+// when time hits zero the unanswered message does not inform the user and does not add into the results page 

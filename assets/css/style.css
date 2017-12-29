@@ -26,7 +26,7 @@ h1 {
     color: black;
 }
 
-button {
+#startButton {
     width: 40%;
     height: 10%;
     font-size: 30px;
@@ -41,5 +41,51 @@ button {
 	background-color: lightBlue;
 	color: white;
 	padding: 10px;
+}
+
+
+#remainingTime {
+    font-size: 40px;
+    color: gray;
+}
+
+#alertMessage {
+    font-size: 30px;
+    color: red;
+}
+
+#rightAnswer {
+    font-size: 20px;
+    color: blue;
+}
+
+#endMessage {
+    font-size: 40px;
+    color: black;
+}
+
+#answerList {
+    font-size: 40px;
+
+}
+
+#rightAnswer {
+    font-size: 35px;
+
+}
+
+#correctAnswers {
+    font-size: 30px;
+    color: blue;
+}
+
+#incorrectAnswers {
+    font-size: 30px;
+    color: blue;
+}
+
+#unanswered {
+    font-size: 30px;
+    color: blue;
 }
 
